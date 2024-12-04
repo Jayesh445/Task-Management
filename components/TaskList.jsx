@@ -13,21 +13,19 @@ import {
   deleteTask,
   TaskStatus,
   toggleTaskStatus,
-} from "../src/features/tasksManagement/taskManagerSlice"; // Assuming you have task status constants
-import AddTaskComponent from "./AddTaskComponent"; // Importing the add task modal
+} from "../src/features/tasksManagement/taskManagerSlice"; 
+import AddTaskComponent from "./AddTaskComponent"; 
 
 const TaskList = () => {
   const tasks = useSelector((state) => state.tasks);
   const [search, setSearch] = useState("");
-  const [filterStatus, setFilterStatus] = useState("all"); // Default to 'all' tasks
-  const [modalOpen, setModalOpen] = useState(false); // For managing modal visibility
-  const [editTask, setEditTask] = useState(null); // Store the task to edit
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [modalOpen, setModalOpen] = useState(false); 
+  const [editTask, setEditTask] = useState(null); 
   const dispatch = useDispatch();
 
-  // Helper to determine if a task is overdue
   const isOverdue = (task) => new Date(task.deadLine) < new Date() && task.status !== TaskStatus.COMPLETED;
 
-  // Filtering tasks based on the search and status filter
   const filteredTasks = tasks.filter((task) => {
     const matchesSearch = task.title
       .toLowerCase()
@@ -42,14 +40,13 @@ const TaskList = () => {
     return matchesSearch && matchesStatus;
   });
 
-  // Open Edit Task modal
   const openEditModal = (task) => {
-    setEditTask(task); // Set the task that will be edited
+    setEditTask(task); 
     setModalOpen(true);
   };
 
   const handleToggleStatus = (taskId) => {
-    dispatch(toggleTaskStatus(taskId)); // Dispatch toggle status action
+    dispatch(toggleTaskStatus(taskId));
   };
 
   const handleEdit = (task) => {
@@ -57,7 +54,7 @@ const TaskList = () => {
   };
 
   const handleDelete = (taskId) => {
-    dispatch(deleteTask(taskId)); // Dispatch delete action
+    dispatch(deleteTask(taskId));
   };
 
   return (
@@ -105,12 +102,10 @@ const TaskList = () => {
           />
         ))}
       </Box>
-
-      {/* Add Task Modal */}
       <AddTaskComponent
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
-        taskToEdit={editTask} // Pass the task to edit (if any)
+        taskToEdit={editTask} 
       />
     </div>
   );

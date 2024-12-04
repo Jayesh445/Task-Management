@@ -17,7 +17,6 @@ const MainContent = () => {
       </div>
       <div className="right-content">
         <BasicDateCalendar />
-        {/* <GanttChartComponent/> */}
         <TaskManager />
       </div>
     </div>

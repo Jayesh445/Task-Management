@@ -1,19 +1,29 @@
 import React from "react";
+import { useSelector } from "react-redux"; 
 import { Doughnut } from "react-chartjs-2";
-import { CardContent } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { TaskStatus } from "../../src/features/tasksManagement/taskManagerSlice";
 
-// Registering the required components for Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const StackedPieChart = () => {
-  // Data for Stacked Pie Chart
+  const tasks = useSelector((state) => state.tasks);
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(task => task.status === TaskStatus.COMPLETED).length;
+  const inProgressTasks = tasks.filter(task => task.status === TaskStatus.IN_PROCESS).length;
+  const pendingTasks = tasks.filter(task => task.status === TaskStatus.PENDING).length;
+
+  const completedPercentage = (completedTasks / totalTasks) * 100;
+  const inProgressPercentage = (inProgressTasks / totalTasks) * 100;
+  const pendingPercentage = (pendingTasks / totalTasks) * 100;
+
   const data = {
     labels: ["Completed", "In Progress", "Pending"],
     datasets: [
       {
         label: "Task Breakdown Level 1",
-        data: [40, 30, 30],
+        data: [completedPercentage, inProgressPercentage, pendingPercentage],
         backgroundColor: ["#3b82f6", "#93c5fd", "#d1d5db"],
         hoverOffset: 10,
         borderWidth: 4,
@@ -22,7 +32,7 @@ const StackedPieChart = () => {
       },
       {
         label: "Task Breakdown Level 2",
-        data: [25, 15, 10],
+        data: [completedPercentage * 0.6, inProgressPercentage * 0.6, pendingPercentage * 0.6],
         backgroundColor: ["#2563eb", "#60a5fa", "#9ca3af"],
         hoverOffset: 10,
         borderWidth: 4,
@@ -31,7 +41,7 @@ const StackedPieChart = () => {
       },
       {
         label: "Task Breakdown Level 3",
-        data: [15, 10, 5],
+        data: [completedPercentage * 0.4, inProgressPercentage * 0.4, pendingPercentage * 0.4],
         backgroundColor: ["#1d4ed8", "#3b82f6", "#6b7280"],
         hoverOffset: 10,
         borderWidth: 4,
@@ -41,10 +51,9 @@ const StackedPieChart = () => {
     ],
   };
 
-  // Options for customizing the chart
   const options = {
     responsive: true,
-    cutout: "60%", // Adjust the inner radius for a thinner look
+    cutout: "60%", 
     plugins: {
       legend: {
         display: true,
@@ -55,14 +64,14 @@ const StackedPieChart = () => {
           label: function (tooltipItem) {
             const datasetLabel = tooltipItem.dataset.label || "Dataset";
             const value = tooltipItem.raw;
-            return `${datasetLabel}: ${value}%`;
+            return `${datasetLabel}: ${value.toFixed(2)}%`; 
           },
         },
       },
     },
     animation: {
-      animateScale: true, // Smooth scale effect
-      animateRotate: true, // Smooth rotation effect
+      animateScale: true, 
+      animateRotate: true, 
     },
   };
 

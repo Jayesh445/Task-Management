@@ -1,4 +1,3 @@
-/* Dashboard Container */
 .dashboard-container {
   display: flex;
   max-height: 100vh;
@@ -8,7 +7,6 @@
   margin: 0%;
 }
 
-/* Sidebar Styles */
 .sidebar {
   width: 13%;
   height: 100vh;
@@ -44,7 +42,7 @@
   grid-template-columns: 2fr 1fr;
   gap: 1rem;
   box-sizing: border-box;
-  overflow:inherit;
+  overflow: inherit;
   margin-left: 5%;
 }
 
@@ -145,7 +143,6 @@
 .icon {
   margin-right: 0.5rem;
 }
-/* Main Content Styles */
 
 .header {
   display: flex;
@@ -180,8 +177,8 @@
 }
 
 .search-input {
-  border: none; /* Remove border from input */
-  outline: none; /* Remove outline when focused */
+  border: none;
+  outline: none;
   padding: 0.5rem 0.5rem;
   border-radius: 10px;
   font-size: 1rem;
@@ -191,7 +188,7 @@
   position: relative;
   background-color: inherit;
   padding: 0.2rem 0.5rem;
-  border-radius: 10px; /* Curved corners */
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -328,7 +325,7 @@
 }
 .stat-icon {
   font-size: 2rem;
-  /* background: linear-gradient(to right, #7c3aed, #6366f1); Gradient color for icon */
+  /* background: linear-gradient(to right, #7c3aed, #6366f1); */
   -webkit-background-clip: text;
   border: 2px solid white;
   color: transparent;
@@ -394,10 +391,9 @@
   width: 100%;
 }
 
-
 .calendar-card {
   background-color: white;
-  padding: 0rem,0rem;
+  padding: 0rem, 0rem;
   border-radius: 1rem;
   margin: 0%;
   max-height: 50%;
@@ -414,7 +410,7 @@
   background-color: red;
 }
 
-.tasklist{
+.tasklist {
   width: 90%;
   padding: 1rem;
   height: 100vh;

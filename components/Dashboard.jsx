@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Dashboard.css";
-import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
 
 const Dashboard = () => {
