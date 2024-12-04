@@ -1,18 +1,27 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, Card, CardContent, Grid, Button } from "@mui/material";
-import { toggleTaskStatus, deleteTask } from "../src/features/tasksManagement/taskManagerSlice";
+import TaskCard from "./TaskCard";
+import { deleteTask, toggleTaskStatus } from "../src/features/tasksManagement/taskManagerSlice";
+import AddTaskComponent from "./AddTaskComponent";
 
 const TaskManager = () => {
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
-
-  const handleToggleStatus = (id) => {
-    dispatch(toggleTaskStatus(id));
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editTask, setEditTask] = useState(null);
+  
+  const handleToggleStatus = (taskId) => {
+    dispatch(toggleTaskStatus(taskId)); // Dispatch toggle status action
   };
 
-  const handleDeleteTask = (id) => {
-    dispatch(deleteTask(id));
+  const handleEdit = (task) => {
+    setEditTask(task); // Set the task that will be edited
+    setModalOpen(true);
+  };
+
+  const handleDelete = (taskId) => {
+    dispatch(deleteTask(taskId)); // Dispatch delete action
   };
 
   return (
@@ -34,56 +43,11 @@ const TaskManager = () => {
           <Grid container direction="column" spacing={2}>
             {tasks && tasks.length > 0 ? (
               tasks.map((task) => (
-                <Grid item key={task.id}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      padding: 2,
-                      backgroundColor: "#eff6ff",
-                      borderRadius: 3,
-                    }}
-                  >
-                    <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                      {task.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: "#6b7280" }}>
-                      {new Date(task.taskAddedTime).toLocaleString()} -{" "}
-                      {new Date(task.deadLine).toLocaleString()}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ marginTop: 1, color: "#374151" }}
-                    >
-                      {task.description}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ marginTop: 1, color: "#6b7280" }}
-                    >
-                      Status: {task.status}
-                    </Typography>
-                    <Box display="flex" gap={2} marginTop={2}>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        size="small"
-                        onClick={() => handleToggleStatus(task.id)}
-                      >
-                        Toggle Status
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        size="small"
-                        onClick={() => handleDeleteTask(task.id)}
-                      >
-                        Delete
-                      </Button>
-                    </Box>
-                  </Box>
-                </Grid>
+                <TaskCard  key={task.id}
+                task={task}
+                onToggleStatus={handleToggleStatus}
+                onEdit={handleEdit}
+                onDelete={handleDelete}/>
               ))
             ) : (
               <Typography variant="body2" sx={{ color: "#6b7280" }}>
@@ -93,6 +57,13 @@ const TaskManager = () => {
           </Grid>
         </CardContent>
       </Card>
+
+      {/* Add Task Modal */}
+      <AddTaskComponent
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        taskToEdit={editTask} // Pass the task to edit (if any)
+      />
     </Box>
   );
 };

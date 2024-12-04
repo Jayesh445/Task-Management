@@ -13,10 +13,6 @@ const Header = () => {
           <p className="date">{formattedDate}</p>
         </div>
         <div className="header-actions">
-          <div className="search-container">
-            <SearchIcon color="#000" />
-            <input type="text" placeholder="Search" className="search-input" />
-          </div>
           <button className="date-button">
             <TodayOutlinedIcon />
             {formattedDate}

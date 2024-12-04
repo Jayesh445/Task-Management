@@ -17,8 +17,26 @@
   border-radius: 10px;
 }
 
+.task-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0.5rem 0;
+}
+
+.task-card h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.task-card p {
+  font-size: 0.875rem;
+  color: #666;
+}
+
 .main-content {
-  width: 87%;
+  width: 90%;
   padding: 1rem;
   height: 100vh;
   background-color: #c1c1c176;
@@ -27,6 +45,7 @@
   gap: 1rem;
   box-sizing: border-box;
   overflow:inherit;
+  margin-left: 5%;
 }
 
 .left-content {
@@ -393,4 +412,13 @@
 
 .gantt-task.pending {
   background-color: red;
+}
+
+.tasklist{
+  width: 90%;
+  padding: 1rem;
+  height: 100vh;
+  background-color: #c1c1c176;
+  box-sizing: border-box;
+  margin-left: 5%;
 }
